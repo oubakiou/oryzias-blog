@@ -1,0 +1,27 @@
+
+    <div id="sidebar" class="span4">
+        {[if($recentBlogList):]}
+        <section id="recent-posts">
+            <h2>Recent Posts</h2>
+            <ul>
+                {[foreach($recentBlogList as $recentBlog):]}
+                    <li><a title="{[$recentBlog['title']]}" href="/{[$recentBlog['id']]}">
+                        {[$recentBlog['title']]}
+                    </a></li>
+                {[endforeach;]}
+            </ul>
+        </section>
+        {[endif;]}
+
+        {[if($tagList):]}
+            <section id="tags">
+                <h2>Tags</h2>
+                {[foreach($tagList as $tag):]}
+                    <li><a title="{[ echo urlencode($tag['name']); ]}" href="/tag/{[$tag['id']]}/">
+                        {[$tag['name']]}
+                    </a></li>
+                {[endforeach;]}
+            </section>
+        {[endif;]}
+        
+    </div>

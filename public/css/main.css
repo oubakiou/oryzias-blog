@@ -4,6 +4,16 @@
    Author's custom styles
    ========================================================================== */
 
+.blogInputTextarea{
+    width:600px;
+    height:400px;
+}
+
+.blogPreviewTextarea{
+  padding:20px;
+  width:600px;
+  height:400px;
+}
 
 
 

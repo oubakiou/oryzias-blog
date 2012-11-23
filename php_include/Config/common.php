@@ -18,8 +18,15 @@ return [
     'templateFp'=>false,
     'templateSp'=>false,
     'image'=>[
-        'uploadImgMaxSize'    => 1048576,
-        'uploadImgPath'       => realpath(dirname(__FILE__).'/../../') . '/public/img',
+        'uploadImgMaxSize' => 100000000,
+        'uploadImgUrl'     => '/img/up/',
+        'uploadImgPath'    => realpath(dirname(__FILE__).'/../../') . '/public/img/up/',
     ],
-    'routingRules'=>[],
+    'routingRules'=>[
+        ['pathPattern'=>'/calendar\/(.*)\//', 'controllerName'=>'Calendar_Index', 'paramsName'=>['date']],
+        ['pathPattern'=>'/calendar\/(.*)/', 'controllerName'=>'Calendar_BlogList', 'paramsName'=>['currentPage']],
+        ['pathPattern'=>'/tag\/([0-9]+)\//', 'controllerName'=>'Tag_BlogList', 'paramsName'=>['tagId']],
+        ['pathPattern'=>'/tag\/([0-9]+)/', 'controllerName'=>'Tag_Index', 'paramsName'=>['currentPage']],
+        ['pathPattern'=>'/([0-9]+)/', 'controllerName'=>'Detail', 'paramsName'=>array('id')],
+    ],
 ];

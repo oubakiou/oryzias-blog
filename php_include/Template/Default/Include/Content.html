@@ -1,0 +1,22 @@
+<div class="span8" id="content">
+    
+    {[ foreach($articleList as $article): ]}
+        {[include(Include/Article)]}
+    {[ endforeach; ]}
+        
+    {[ if(isset($isDetail)): ]} 
+        <section class="comments" id="comments">
+            <div id="comments-open" class="comments-open">
+                <h2 class="comments-open-header">comment</h2>
+                <div class="comments-open-content">
+                    
+                </div>
+            </div>
+        </section>
+    {[ endif; ]}
+        
+    <nav class="content-nav">
+        {[include(Include/Paginator)]}
+    </nav>
+
+</div>

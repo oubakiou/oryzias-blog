@@ -1,0 +1,63 @@
+{[include(Admin/Include/Header)]}
+
+  {[ if(isset($g['upload'])): ]}
+    <div class="control-group success"><label>画像を保存しました</label></div>
+  {[ elseif(isset($g['delete'])): ]}
+    <div class="control-group error"><label>画像を削除しました</label></div>
+  {[ endif; ]}
+
+<div class="row">
+
+  {[ if(isset($error['errorList'])): ]}
+    <div class="control-group error">
+        {[ foreach($error['errorList'] as $e): ]}
+        <label>{[$e]}</label>
+        {[ endforeach; ]}
+    </div>
+  {[ endif; ]}
+
+  <form action="" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="MAX_FILE_SIZE" value="{[$allowFileSize]}" />
+  <fieldset>
+  <legend>画像</legend>
+
+    <div class="span12 control-group{[ if(isset($error['name'])): ]} error{[ endif; ]}">
+      <label>画像名</label>
+      <input
+        type="text" name="data[name]" maxlength="85" value="{[$data['name']]}" class="input-xlarge"
+        placeholder="未入力の場合は自動的に設定されます"
+      >
+    </div>
+
+    <div class="span12 control-group{[ if(isset($error['name'])): ]} error{[ endif; ]}">
+      <input
+        type="file" name="image" class="input-xlarge"
+        accept="image/jpeg,image/jpg,image/png,image/gif"
+      >
+    </div>
+
+    <div class="span12" id="butContainer">
+      <input type="hidden" name="data[csrfToken]" value="{[$s['csrfToken']]}" />
+      <button class="btn btn-primary" type="submit">保存</button>
+    </div>
+
+  </fieldset>
+  </form>
+
+{[if($imageList):]}
+  {[foreach($imageList as $image):]}
+  <div class="span3 presenItem">
+    <img src="{[$image['urlForThumbnail']]}" alt="{[$image['name']]}">
+      <p>
+        <a href="/admin/image/delete?id={[$image['id']]}" class="btn btn-danger">
+          <i class="icon-trash icon-white"></i> 削除
+        </a>
+      </p>
+
+  </div>
+  {[endforeach;]}
+{[endif;]}
+
+</div>
+
+{[include(Admin/Include/Footer)]}

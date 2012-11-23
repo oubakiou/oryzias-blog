@@ -1,0 +1,32 @@
+{[include(Admin/Include/Head)]}
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+
+          {[ if(isset($s['admin'])): ]}
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          {[ endif; ]}
+
+          <a class="brand" href="/admin/">ブログ管理</a>
+
+          {[ if(isset($s['admin'])): ]}
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li{[ if($controllerName=='Controller_Admin_Index'): ]} class="active"{[ endif; ]}><a href="/admin/">記事の一覧</a></li>
+              <li{[ if($controllerName=='Controller_Admin_Image_Index'): ]} class="active"{[ endif; ]}><a href="/admin/image/">画像の管理</a></li>
+              <li><a href="/admin/logout">ログアウト</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+          {[ endif; ]}
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">

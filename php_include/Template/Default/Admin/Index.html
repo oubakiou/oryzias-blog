@@ -1,0 +1,46 @@
+{[include(Admin/Include/Header)]}
+
+{[ if(isset($g['blogedit'])): ]}
+  <div class="span12 control-group success"><label>ブログを保存しました</label></div>
+{[ elseif(isset($g['blogdelete'])): ]}
+  <div class="span12 control-group error"><label>ブログを削除しました</label></div>
+{[ endif; ]}
+
+<div class="row">
+
+{[ if(isset($blogList)): ]}
+    <table class="table">
+  {[ foreach($blogList as $blog): ]}
+  <tr>
+    <td><a href="/{[$blog['id']]}" target="_blank">{[$blog['title']]}</a></td>
+    <td>{[$blog['createdAt']]}</td>
+    <td>
+        <a href="/admin/blog/?id={[$blog['id']]}" class="btn btn-small btn-primary">
+            <i class="icon-file icon-white"></i>編集
+        </a>
+        <a href="/admin/blog/delete?id={[$blog['id']]}" class="btn btn-small btn-danger">
+          <i class="icon-trash icon-white"></i> 削除
+        </a>
+    </td>
+  </tr>
+  {[ endforeach; ]}
+  </table>
+{[ else: ]}
+  <div class="span12">まだ記事はありません</div>
+{[ endif; ]}
+
+</div>
+
+{[include(Include/Paginator)]}
+
+<div>
+    <a href="/admin/blog/" class="btn btn-primary">
+        <i class="icon-file icon-white"></i>新規作成
+    </a>
+    <a href="/admin/image/" class="btn btn-primary">
+        <i class="icon-picture icon-white"></i>画像をアップロードする
+    </a>
+</div>
+
+
+{[include(Admin/Include/Footer)]}

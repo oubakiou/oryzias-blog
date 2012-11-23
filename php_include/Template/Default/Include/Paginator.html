@@ -1,0 +1,33 @@
+{[ if(isset($paginator)): ]}
+  <div class="pagination">
+    <ul>
+      {[ if($paginator['first']): ]}
+        <li><a href="{[$paginator['first']]}">««</a></li>
+      {[ else: ]}
+        <li class="disabled"><a>««</a></li>
+      {[ endif; ]}
+
+      {[ if($paginator['back']): ]}
+        <li><a href="{[$paginator['back']]}">«</a></li>
+      {[ else: ]}
+        <li class="disabled"><a>«</a></li>
+      {[ endif; ]}
+
+      {[ foreach($paginator['pages'] as $page): ]}
+        <li{[ if($paginator['current']==$page): ]} class="active"{[ endif; ]}><a href="{[$page]}">{[$page]}</a></li>
+      {[ endforeach; ]}
+
+      {[ if($paginator['next']): ]}
+        <li><a href="{[$paginator['next']]}">»</a></li>
+      {[ else: ]}
+        <li class="disabled"><a>»</a></li>
+      {[ endif; ]}
+
+      {[ if($paginator['last']): ]}
+        <li><a href="{[$paginator['last']]}">»»</a></li>
+      {[ else: ]}
+        <li class="disabled"><a>»»</a></li>
+      {[ endif; ]}
+    </ul>
+  </div>
+{[ endif; ]}

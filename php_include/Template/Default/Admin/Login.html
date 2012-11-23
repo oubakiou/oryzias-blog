@@ -1,0 +1,47 @@
+{[include(Admin/Include/Header)]}
+
+<div>
+
+  <form class="signup" action="/admin/login" method="POST">
+  <fieldset>
+  <legend>ログイン</legend>
+
+  {[ if(isset($error['login'])): ]}
+    <div class="control-group error">
+        {[ foreach($error['login'] as $e): ]}
+        <label>{[$e]}</label>
+        {[ endforeach; ]}
+    </div>
+  {[ endif; ]}
+
+    <div class="control-group{[ if(isset($error['name'])): ]} error{[ endif; ]}">
+      <label>ユーザ名</label>
+      {[ $this->form->text('data[name]', $data['name'], ['required'=>'required']) ]}
+      {[ if(isset($error['name'])): ]}
+        <ul>
+          {[ foreach($error['name'] as $e): ]}
+            <li class="help-inline">{[$e]}</li>
+          {[ endforeach; ]}
+        </ul>
+      {[ endif; ]}
+    </div>
+
+    <div class="control-group{[ if(isset($error['password'])): ]} error{[ endif; ]}">
+      <label>パスワード</label>
+      {[ $this->form->password('data[password]', $data['password'], ['required'=>'required']) ]}
+      {[ if(isset($error['password'])): ]}
+        <ul>
+          {[ foreach($error['password'] as $e): ]}
+            <li class="help-inline">{[$e]}</li>
+          {[ endforeach; ]}
+        </ul>
+      {[ endif; ]}
+    </div>
+
+    <div>
+      <button class="btn btn-primary" type="submit">ログイン</button>
+    </div>
+  </fieldset>
+  </form>
+</div>
+{[include(Admin/Include/Footer)]}

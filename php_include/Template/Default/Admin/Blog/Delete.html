@@ -1,0 +1,27 @@
+{[include(Admin/Include/Header)]}
+
+<div class="row">
+
+  {[ if(isset($error['errorList'])): ]}
+    <div class="control-group error">
+        {[ foreach($error['errorList'] as $e): ]}
+        <label>{[$e]}</label>
+        {[ endforeach; ]}
+    </div>
+  {[ endif; ]}
+
+  <form action="" method="POST">
+  <fieldset>
+  <legend>ブログを削除してよろしいですか？</legend>
+
+    <div class="span12" id="butContainer">
+      <input type="hidden" name="csrfToken" value="{[$s['csrfToken']]}">
+      <button class="btn btn-danger" type="submit">削除</button>
+    </div>
+
+  </fieldset>
+  </form>
+
+</div>
+
+{[include(Admin/Include/Footer)]}

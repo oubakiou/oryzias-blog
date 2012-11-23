@@ -1,4 +1,4 @@
 <?php
-abstract class Validator_Parent_Common extends Oryzias\Validator{
-
+abstract class Model_Validator_Parent_Common extends Oryzias\Validator
+{
 }

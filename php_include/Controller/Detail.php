@@ -1,10 +1,12 @@
 <?php
-class Controller_Index extends Controller_Parent_Public
+class Controller_Detail extends Controller_Parent_Public
 {
     public function exec()
     {
-        $this->assign('title', 'TOP');
-        if ($articleList = $this->Db_Blog->search()) {
+        if (isset($this->g['page'])) {
+            $this->g['page'] = 1;
+        }
+        if ($articleList = $this->Db_Blog->search(['id'=>$this->g['id'], 1, $this->g['page']])) {
             foreach ($articleList['data'] as $k=>$v) {
                 if ($this->isSmartPhone()) {
                     $articleList['data'][$k]['body'] = $v['bodyHtmlSp'];
@@ -19,8 +21,16 @@ class Controller_Index extends Controller_Parent_Public
                 }
             }
             $this->template->unEscapedAssign('articleList', $articleList['data']);
-            $this->template->unEscapedAssign('paginator', $articleList['paginator']);
         }
+        
+        $this->assign('isDetail', true);
+        $this->assign('title', $articleList['data'][0]['title']);
+        if ($articleList['data'][0]['description']) {
+            $description = $articleList['data'][0]['description'];
+        } else {
+            $description = $articleList['data'][0]['body'];
+        }
+        $this->assign('description', strip_tags($description));
         $this->template->setTemplate('Search');
     }
 }

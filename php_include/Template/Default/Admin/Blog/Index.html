@@ -1,0 +1,105 @@
+{[include(Admin/Include/Header)]}
+
+<script type="text/javascript" src="/js/vendor/markdown.js"></script>
+<script type="text/javascript">
+
+$(function(){
+
+  $('#blogInputTextarea').each(function(){
+    $('#blogPreviewTextarea').html(window.markdown.toHTML($('#blogInputTextarea').val().replace('/img/pc/', '/img/sp/')));
+  });
+
+  $('#blogInputTextarea').keyup(function(e){
+    $('#blogPreviewTextarea').html(window.markdown.toHTML($('#blogInputTextarea').val().replace('/img/pc/', '/img/sp/')));
+  });
+
+});
+
+</script>
+
+<div class="row">
+
+  {[ if(isset($error['errorList'])): ]}
+    <div class="control-group error">
+        {[ foreach($error['errorList'] as $e): ]}
+        <label>{[$e]}</label>
+        {[ endforeach; ]}
+    </div>
+  {[ endif; ]}
+
+
+  <form action="" method="POST">
+  <fieldset>
+    {[ $this->form->hidden('data[id]', $data['id']); ]}
+    
+    <div class="span12 control-group{[ if(isset($error['title'])): ]} error{[ endif; ]}">
+      <label>タイトル</label>
+      {[ $this->form->text('data[title]', $data['title'], ['class'=>'input-xlarge', 'placeholder'=>'タイトル', 'required'=>'required']); ]}
+    </div>
+    
+    <div class="span12 control-group{[ if(isset($error['keyImageId'])): ]} error{[ endif; ]}">
+      <label>キービジュアル</label>
+      {[ $this->form->select(
+          'data[keyImageId]', 
+          $data['keyImageId'], 
+          ['class'=>'input-xlarge'],
+          $imageListValues,
+          $imageListLabels
+      ) ]}
+    </div>
+    
+    <div class="span12 control-group">
+      <label>タグ</label>
+      {[ $this->form->text('data[tags]', $data['tags'], ['class'=>'input-xlarge', 'placeholder'=>'スペース区切りで入力してください']); ]}
+    </div>
+
+    <div class="span12 control-group{[ if(isset($error['description'])): ]} error{[ endif; ]}">
+      <label>概要</label>
+      {[ $this->form->textarea('data[description]', $data['description'], ['class'=>'input-xlarge']); ]}
+    </div>
+
+    <div class="span12">
+    <div class="row">
+
+      <div class="span12 control-group{[ if(isset($error['bodyMarkDown'])): ]} error{[ endif; ]}">
+        <label>本文をマークダウン記法で入力してください</label>
+        {[ $this->form->textarea(
+            'data[bodyMarkdown]', 
+            $data['bodyMarkdown'], 
+            ['id'=>'blogInputTextarea', 'class'=>'markdownTextarea blogInputTextarea', 'required'=>'required']); 
+        ]}
+      </div>
+      
+      
+    <div class="span12 control-group">
+      {[ $this->form->radio(
+          'data[isPublic]', 
+          $data['isPublic'], 
+          ['class'=>'input-xlarge'], 
+          ['1', 0], 
+          ['公開', '非公開']) 
+      ]}
+    </div>
+
+    <div class="span12" id="butContainer">
+      <input type="hidden" name="data[csrfToken]" value="{[$s['csrfToken']]}" />
+      <button class="btn btn-primary" type="submit">保存</button>
+    </div>
+
+    <hr/>
+
+      <div class="span12">
+        <div id="blogPreviewTextarea" class="blogPreviewTextarea">
+        </div>
+     </div>
+
+   </div>
+   </div>
+
+
+  </fieldset>
+  </form>
+
+</div>
+
+{[include(Admin/Include/Footer)]}
