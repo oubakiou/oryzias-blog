@@ -1,0 +1,40 @@
+{[ if(isset($articleList)): ]}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:admin="http://webns.net/mvcb/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+    <channel>
+        <title>{[$blogTitle]}</title>
+        <link>{[$blogBaseUrl]}?output=rss</link>
+        <description>{[$blogDescription]}</description>
+        <dc:language>ja</dc:language>
+        <dc:creator>{[$blogAuthorName]}</dc:creator>
+        <dc:date>{[$articleList[0]['updatedAt']]}</dc:date>
+        
+        {[ foreach($articleList as $article): ]}
+            <item>
+            <title>{[$article['title']]}</title>
+            <link>{[$blogBaseUrl]}{[$article['id']]}</link>
+            <description>{[$article['body']]}</description>
+            <dc:subject>
+                {[if($article['tags']):]}
+                    {[foreach($article['tags'] as $tag):]}{[$tag['name']]},{[endforeach;]}
+                {[endif;]}
+            </dc:subject>
+            <dc:creator>{[$blogAuthorName]}</dc:creator> 
+            <dc:date>
+                {[if($article['updatedAt']):]}
+                    {[$article['updatedAt']]}
+                {[else:]}
+                    {[$article['createdAt']]}
+                {[endif;]}
+            </dc:date>
+            </item>
+        {[ endforeach; ]}
+        
+    </channel>
+</rss>
+{[ endif; ]}

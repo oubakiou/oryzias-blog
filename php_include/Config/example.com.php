@@ -15,6 +15,9 @@ return [
             'password'=>'demo',
         ],
     ],
+    'template'=>[
+        'enabledGzip'         => false,
+    ],
     'admin'=>[
         'name'=>'demo',
         'password'=>'demo',
@@ -22,5 +25,10 @@ return [
     'blog'=>[
         'title'=>'デモブログ',
         'logoUrl'=>'',
+        'authorName' => 'demo',
+    ],
+    'disqus'=>[
+        'enabled'=>true,
+        'shortName'=>'',
     ],
 ];

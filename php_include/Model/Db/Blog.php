@@ -41,19 +41,41 @@ class Model_Db_Blog extends Model_Db_Parent_Common
     }
     
     //ブログ取得
-    public function getBlogById($id)
+    public function getBlogById($id, $isSmartPhone = false)
     {
         if (!$blog = $this->getById($id)) {
             return false;
         }
         
+        //タグ情報付与
         $dbBlogTag = new Model_Db_BlogTag;
         $blog['tags'] = $dbBlogTag->getTagListByBlogId($id);
+        
+        //画像情報付与
+        if (isset($blog['keyImageId'])) {
+            $dbImage = new Model_Db_Image();
+            $blog['keyImage'] = $dbImage->getImage($blog['keyImageId']);
+        }
+        
+        if ($isSmartPhone) {
+            //スマートフォン向けに画像調整
+            $blog['body'] = $blog['bodyHtmlSp'];
+            if (isset($blog['keyImage']['urlForSp'])) {
+                $blog['keyImageUrl'] = $blog['keyImage']['urlForSp'];
+            }
+        } else {
+            //PC向けに画像調整
+            $blog['body'] = $blog['bodyHtmlPc'];
+            if (isset($blog['keyImage']['urlForPc'])) {
+                $blog['keyImageUrl'] = $blog['keyImage']['urlForPc'];
+            }
+        }
+        
         return $blog;
     }
     
     //ブログの一覧をページャー付きで取得
-    public function search($cond=[], $perPage=10, $currentPage=1)
+    public function search($cond = [], $perPage = 10, $currentPage = 1, $isSmartPhone = false)
     {
         $sqlParts = [
             'select' => 'b.id',
@@ -82,13 +104,10 @@ class Model_Db_Blog extends Model_Db_Parent_Common
         }
         
         $sql = $this->buildSelect($sqlParts);
-        if ($result = $this->fetchAllWithPaginator($sql, $params, $perPage, $currentPage)) {
-            $dbImage = new Model_Db_Image();
+        $result = $this->fetchAllWithPaginator($sql, $params, $perPage, $currentPage);
+        if ($result['data']) {
             foreach ($result['data'] as $k=>$v) {
                 $result['data'][$k] = $this->getBlogById($v['id']);
-                if (isset($result['data'][$k]['keyImageId'])) {
-                    $result['data'][$k]['keyImage'] = $dbImage->getImage($result['data'][$k]['keyImageId']);
-                }
             }
             return $result;
         } else {

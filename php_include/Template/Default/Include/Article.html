@@ -3,15 +3,23 @@
             <header class="asset-header">
                 
                 <h1 class="asset-name">
-                    <a rel="bookmark"
-                        title="{[$article['title']]}"
-                        href="/{[$article['id']]}">{[$article['title']]}</a>
+                    <a title="{[$article['title']]}" href="/{[$article['id']]}">
+                        {[$article['title']]}
+                    </a>
                 </h1>
                 
                 <div class="asset-meta">
-                    
                     <span class="byline">
-                        <abbr class="published">{[$article['createdAt']]}</abbr>
+                    
+                        <span class="published">{[ $this->dateFormat($article['createdAt'], 'Y年m月d日'); ]}</span>
+                        
+                        {[ if($article['tags']): ]}
+                            {[ foreach($article['tags'] as $tag): ]}
+                                <a href="/tag/{[$tag['id']]}/">
+                                   <code>{[$tag['name']]}</code>
+                                </a>
+                            {[ endforeach; ]}
+                        {[ endif; ]}
                     </span>
                 </div>
                 
@@ -19,7 +27,10 @@
             
             <hr />
                 {[ if(isset($article['keyImage'])): ]}
-                    <img src="{[$article['keyImageUrl']]}" /><br /><br />
+                    <a href="{[$article['keyImageUrl']]}">
+                    <img src="{[$article['keyImageUrl']]}" class="thumbnail"/>
+                    </a>
+                    <br />
                 {[ endif; ]}
             
             <div class="asset-content">
@@ -29,3 +40,5 @@
             {[include(Include/SocialButtons)]}
 
         </article>
+        
+        <hr />

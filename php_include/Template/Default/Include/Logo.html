@@ -1,7 +1,11 @@
 
     <div class="span12">
         <h1 id="logo">
-            <a title="{[$blogTitle]}" href="/"><img src="{[$blogLogo]}"></a>
-            <small>{[$blogTitle]}</small>
+            <a title="{[$blogTitle]}" href="/">
+                {[ if($blogLogo): ]}
+                    <img src="{[$blogLogo]}">
+                {[ endif; ]}
+                <small>{[$blogTitle]}</small>
+            </a>
         </h1>
     </div>

@@ -43,8 +43,8 @@ class Model_Db_Image extends Model_Db_Parent_Common
         //URLを保存
         $updateData['id'] = $id;
         $updateData['urlForPc'] = $this->getUrlForPc($id, $data['ext']);
-        $updateData['urlForSp'] = $this->getUrlForPc($id, $data['ext']);
-        $updateData['urlForThumbnail'] = $this->getUrlForPc($id, $data['ext']);
+        $updateData['urlForSp'] = $this->getUrlForSp($id, $data['ext']);
+        $updateData['urlForThumbnail'] = $this->getUrlForThumbnail($id, $data['ext']);
         $this->replaceByKey($updateData);
         
         return true;

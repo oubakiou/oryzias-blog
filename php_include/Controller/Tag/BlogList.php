@@ -3,22 +3,16 @@ class Controller_Tag_BlogList extends Controller_Parent_Public
 {
     public function exec()
     {
-        if ($articleList = $this->Db_Blog->search(['tagId'=>$this->g['tagId']])) {
-            foreach ($articleList['data'] as $k=>$v) {
-                if ($this->isSmartPhone()) {
-                    $articleList['data'][$k]['body'] = $v['bodyHtmlSp'];
-                    if (isset($v['keyImage']['urlForPc'])) {
-                        $articleList['data'][$k]['keyImageUrl'] = $v['keyImage']['urlForPc'];
-                    }
-                } else {
-                    $articleList['data'][$k]['body'] = $v['bodyHtmlPc'];
-                    if (isset($v['keyImage']['urlForSp'])) {
-                        $articleList['data'][$k]['keyImageUrl'] = $v['keyImage']['urlForSp'];
-                    }
-                }
-            }
-            $this->template->unEscapedAssign('articleList', $articleList['data']);
+        if (!isset($this->g['tagId'])) {
+            $this->r('/notfound');
         }
+        
+        $articleList = $this->Db_Blog->search(['tagId'=>$this->g['tagId']]);
+        if ($articleList['data']) {
+            $this->template->unEscapedAssign('articleList', $articleList['data']);
+            $this->template->unEscapedAssign('paginator', $articleList['paginator']);
+        }
+        $this->assign('title', $this->Db_Tag->getNameById($this->g['tagId']));
         $this->template->setTemplate('Search');
     }
 }

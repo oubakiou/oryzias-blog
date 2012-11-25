@@ -47,7 +47,7 @@
 {[if($imageList):]}
   {[foreach($imageList as $image):]}
   <div class="span3 presenItem">
-    <img src="{[$image['urlForThumbnail']]}" alt="{[$image['name']]}">
+    <img src="{[$image['urlForThumbnail']]}" alt="{[$image['name']]}" class="thumbnail" />
       <p>
         <a href="/admin/image/delete?id={[$image['id']]}" class="btn btn-danger">
           <i class="icon-trash icon-white"></i> 削除

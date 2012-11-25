@@ -1,0 +1,11 @@
+{[include(Include/Header)]}
+
+<div class="row">
+    {[ if(isset($tagList)): ]}
+        {[foreach($tagList as $tag):]}
+            <a href="/tag/{[$tag['id']]}/"><code>{[$tag['name']]}</code></a>
+        {[endforeach;]}
+    {[ endif; ]}
+</div>
+
+{[include(Include/Footer)]}
