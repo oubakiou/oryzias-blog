@@ -4,11 +4,6 @@
    Author's custom styles
    ========================================================================== */
 
-body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-}
-
 .blogInputTextarea{
     width:600px;
     height:400px;
