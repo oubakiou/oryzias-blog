@@ -6,7 +6,7 @@ class Controller_Detail extends Controller_Parent_Public
         if (isset($this->g['page'])) {
             $this->g['page'] = 1;
         }
-        $articleList = $this->Db_Blog->search(['id'=>$this->g['id'], 1, $this->g['page'], $this->isSmartPhone()]);
+        $articleList = $this->Db_Blog->search(['id'=>$this->g['id']], 1, $this->g['page'], $this->isSmartPhone());
         
         if (!$articleList) {
             $this->r('notfound');

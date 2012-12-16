@@ -18,7 +18,7 @@ abstract class Controller_Parent_Public extends Controller_Parent_Common
         if (!isset($this->g['page'])) {
             $this->g['page'] = 1;
         }
-        $recentBlogList = $this->Db_Blog->search([], 10, $this->g['page']);
+        $recentBlogList = $this->Db_Blog->search([], 10, $this->g['page'], $this->isSmartPhone());
         $this->assign('recentBlogList', $recentBlogList['data']);
         
         //タグ一覧

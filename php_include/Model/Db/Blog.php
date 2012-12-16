@@ -107,7 +107,7 @@ class Model_Db_Blog extends Model_Db_Parent_Common
         $result = $this->fetchAllWithPaginator($sql, $params, $perPage, $currentPage);
         if ($result['data']) {
             foreach ($result['data'] as $k=>$v) {
-                $result['data'][$k] = $this->getBlogById($v['id']);
+                $result['data'][$k] = $this->getBlogById($v['id'], $isSmartPhone);
             }
             return $result;
         } else {
